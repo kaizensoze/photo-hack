@@ -45,4 +45,4 @@ def main():
 
 if __name__ == "__main__":
     venues_json = main()
-    #print(venues_json)
+    print(venues_json)
