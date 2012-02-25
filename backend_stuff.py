@@ -24,7 +24,6 @@ def getVenues(gps_loc):
         v_temp["gps"] = (v["location"]["lat"], v["location"]["lng"])
         v_temp["address"] = v["location"]["address"] + ", " + v["location"]["city"] + ", " + v["location"]["state"]
         v_temp["categories"] = [c["name"] for c in v["categories"]]
-        print(v_temp)
         venues.append(v_temp)
 
     return venues
@@ -42,8 +41,8 @@ def main():
     input_gps_loc = (40.728672, -73.989745)
 
     venues_near_input = getVenues(input_gps_loc)
-    #for venue in venues_near_input:
-    #    getVenueStorefrontImage(venue)
+    for venue in venues_near_input:
+        getVenueStorefrontImage(venue)
 
 if __name__ == "__main__":
     venues_json = main()
