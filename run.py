@@ -5,7 +5,7 @@ import requests
 def getVenues(gps_loc):
 	lat = gps_loc[0]
 	lng = gps_loc[1]
-	limit = 3
+	limit = 10
 	token = "KDGVWHX0HBPV0MPJHD1U3JK5LBX0TNEV2IJPVL0HQFOXZKAE"
 	version = "20120223"
 	
@@ -14,7 +14,7 @@ def getVenues(gps_loc):
 	venues_raw = json.loads(r.content)["response"]["venues"]
 	
 	# check results
-	print(json.dumps(venues_raw, indent=4))
+	#print(json.dumps(venues_raw, indent=4))
 	
 	# return venues with subset of info
 	venues = []
@@ -23,24 +23,27 @@ def getVenues(gps_loc):
 		v_temp["name"] = v["name"]
 		v_temp["id"] = v["id"]
 		v_temp["gps"] = (v["location"]["lat"], v["location"]["lng"])
-		v_temp["address"] = v["location"]["address"] + ", " + v["location"]["city"] + ", " + v["location"]["state"]
 		venues.append(v_temp)
 	
 	return venues
 
-def getVenueStorefrontImage(venue):
-    addr = venue["address"]
-    
-    url = "http://maps.googleapis.com/maps/api/streetview?size=600x300&location=%s&sensor=true" % (addr)
-    r = requests.get(url)
-    img_data = r.content
-    
-    outfile = file("compare_images/%s.jpeg" % (venue["id"]), 'wb')
-    outfile.write(img_data)
-    outfile.close()
+def getVenueStorefrontImage(venue_gps_loc):
+	lat = venue_gps_loc[0]
+	lng = venue_gps_loc[1]
+	
+	url = "http://maps.googleapis.com/maps/api/streetview?size=600x300&location=%s,%s&sensor=true" % (lat, lng)
+	return url
+	
+	#r = requests.get(url)
+	#return r.content
 
 if __name__ == "__main__":
 	input_gps_loc = (40.728672, -73.989745)
+	
 	venues_near_input = getVenues(input_gps_loc)
+	
 	for venue in venues_near_input:
-	    getVenueStorefrontImage(venue)
+		venue_img = getVenueStorefrontImage(venue["gps"])
+		venue["img"] = venue_img
+		
+	print(venues_near_input)
