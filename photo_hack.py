@@ -20,14 +20,10 @@ def index():
     return {'image_url': 'http://dev.ragemyface.com/uploaded_images/' + filename, 'venue_id': '123'}
 
 
-@route('/hello')
-def hello():
-    response.content_type = 'application/json'
-    return {'image_url': 'http://dev.ragemyface.com/uploaded_images/', 'venue_id': 123}
-
 @route('/uploaded_images/<filename>')
 def send_image(filename):
     return static_file(filename, root='/home/david/photo-hack/uploaded_images')
+
 
 @error(404)
 def error404(error):
