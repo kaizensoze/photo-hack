@@ -2,12 +2,12 @@ import sys, json
 from pprint import pprint
 from bottle import route, run, response
 sys.path.append('/home/david/photo-hack')
-import run_test
+import backend_stuff
 
 @route('/')
 def index():
     response.content_type = 'application/json'
-    venues = run_test.main()
+    venues = backend_stuff.main()
     venues_json = json.dumps(venues)
     return venues_json
 
