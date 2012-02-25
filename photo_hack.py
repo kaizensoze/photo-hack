@@ -7,9 +7,11 @@ import backend_stuff
 @route('/', method='POST')
 def index():
     image = request.POST.get('image')
+    filename = request.POST.get('filename')
     lat = request.POST.get('lat')
     lng = request.POST.get('lng')
-    filename = 'u' + str(int(time.time())) + '.jpeg'
+    if not filename:
+        filename = 'u' + str(int(time.time())) + '.jpeg'
 
     if image:
         fh = open('uploaded_images/' + filename, 'wb')
