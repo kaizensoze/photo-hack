@@ -1,0 +1,109 @@
+[
+    {
+        "verified": false, 
+        "name": "McSorley's Old Ale House", 
+        "url": "http://www.mcsorleysnewyork.com", 
+        "hereNow": {
+            "count": 5
+        }, 
+        "specials": {
+            "count": 0, 
+            "items": []
+        }, 
+        "contact": {
+            "phone": "2124739148", 
+            "formattedPhone": "(212) 473-9148"
+        }, 
+        "location": {
+            "distance": 16, 
+            "city": "New York", 
+            "country": "United States", 
+            "postalCode": "10003", 
+            "state": "NY", 
+            "crossStreet": "btwn 2nd & 3rd Ave.", 
+            "address": "15 E 7th St.", 
+            "lat": 40.728605781992314, 
+            "lng": -73.98991561137187
+        }, 
+        "stats": {
+            "tipCount": 144, 
+            "checkinsCount": 15991, 
+            "usersCount": 12431
+        }, 
+        "id": "3fd66200f964a52058e41ee3", 
+        "categories": [
+            {
+                "pluralName": "Pubs", 
+                "primary": true, 
+                "name": "Pub", 
+                "shortName": "Pub", 
+                "id": "4bf58dd8d48988d11b941735", 
+                "icon": {
+                    "prefix": "https://foursquare.com/img/categories/nightlife/pub_", 
+                    "name": ".png", 
+                    "sizes": [
+                        32, 
+                        44, 
+                        64, 
+                        88, 
+                        256
+                    ]
+                }
+            }
+        ]
+    }, 
+    {
+        "verified": false, 
+        "name": "Porsena", 
+        "url": "http://porsena.com/", 
+        "hereNow": {
+            "count": 0
+        }, 
+        "specials": {
+            "count": 0, 
+            "items": []
+        }, 
+        "contact": {
+            "phone": "2122284923", 
+            "twitter": "porsenanyc", 
+            "formattedPhone": "(212) 228-4923"
+        }, 
+        "location": {
+            "distance": 19, 
+            "city": "New York", 
+            "country": "United States", 
+            "postalCode": "10003", 
+            "state": "NY", 
+            "crossStreet": "btw 2nd & 3rd Ave", 
+            "address": "21 E 7th St", 
+            "lat": 40.7287055, 
+            "lng": -73.9895142
+        }, 
+        "stats": {
+            "tipCount": 30, 
+            "checkinsCount": 1246, 
+            "usersCount": 985
+        }, 
+        "id": "4c98ff5bf419a0939a817488", 
+        "categories": [
+            {
+                "pluralName": "Italian Restaurants", 
+                "primary": true, 
+                "name": "Italian Restaurant", 
+                "shortName": "Italian", 
+                "id": "4bf58dd8d48988d110941735", 
+                "icon": {
+                    "prefix": "https://foursquare.com/img/categories/food/italian_", 
+                    "name": ".png", 
+                    "sizes": [
+                        32, 
+                        44, 
+                        64, 
+                        88, 
+                        256
+                    ]
+                }
+            }
+        ]
+    }
+]
