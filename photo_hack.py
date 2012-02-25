@@ -7,10 +7,17 @@ import backend_stuff
 @route('/', method='POST')
 def index():
     data = request.files.data
-    if name and data and data.file:
+    if data and data.file:
         raw = data.file.read() # This is dangerous for big files
         filename = data.filename
-        return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
+        
+        # decode data using base64 codec, write to a file
+        fh = open('imageToSave.jpg', 'wb')
+        #fh.write(raw.decode('base64'))
+        fh.write(raw)
+        fh.close()
+
+        return "Hello You uploaded %s (%d bytes)." % (filename, len(raw))
 
     response.content_type = 'application/json'
     venues = backend_stuff.main()
