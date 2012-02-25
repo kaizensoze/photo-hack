@@ -37,12 +37,21 @@ def getVenueStorefrontImage(venue):
     outfile.write(img_data)
     outfile.close()
 
+def findMatch(venue):
+    return None
+
 def main():
     input_gps_loc = (40.728672, -73.989745)
 
+    # get all venues near gps coords of user's device
     venues_near_input = getVenues(input_gps_loc)
+
+    # get storefront images of all nearby venues and store on disk
     for venue in venues_near_input:
         getVenueStorefrontImage(venue)
+
+    # take uploaded image, compare against storefront images, and find a match
+    match = findMatch()
 
 if __name__ == "__main__":
     venues_json = main()
