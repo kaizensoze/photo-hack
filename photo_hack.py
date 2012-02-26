@@ -42,6 +42,7 @@ def compare_images(filename):
 @route('/send_postcard')
 def send_postcard():
     image_url = request.GET.get('image_url')
+    venue_name = request.GET.get('venue_name')
     return image_url
 
 
