@@ -17,6 +17,7 @@ COMPARE_IMAGES_PATH = '/home/david/photo-hack/compare_images'
 BASE_URL = 'http://dev.ragemyface.com/'
 
 
+
 @route('/upload', method='POST')
 def upload():
     # upload params
@@ -28,8 +29,8 @@ def upload():
     gps_loc = (lat, lng)
 
     # generate filename to save image to disk
-    if not filename:
-        filename = 'u' + str(int(time.time())) + '.jpeg'
+    filename = 'u' + str(int(time.time())) + '.jpeg'
+    print filename
 
     # save image to disk
     if image:
@@ -68,14 +69,6 @@ def send_image(filename):
 @route('/compare_images/<filename>')
 def compare_images(filename):
     return static_file(filename, root=COMPARE_IMAGES_PATH)
-
-
-@route('/send_postcard')
-def send_postcard():
-    image_url = request.GET.get('image_url')
-    venue_name = request.GET.get('venue_name')
-    backend.sendPostcard(image_url, venue_name)
-    return '1'
 
 
 @error(404)

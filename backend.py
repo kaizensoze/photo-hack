@@ -84,6 +84,7 @@ def getMatch(filepath, gps_loc):
     
     # take uploaded image, compare against storefront images, and find a match
     # TODO: match_venue_id = callOpenCVCall()
+    match_venue_id = '4a5d186ff964a5202bbd1fe3'
 
     match_venue = venues_near_input[match_venue_id]
 
