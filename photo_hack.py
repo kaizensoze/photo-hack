@@ -7,9 +7,9 @@ import time
 from pprint import pprint
 
 from bottle import route, run, request, response, static_file, error
+sys.path.append('/home/david/photo-hack')
 import backend
 
-sys.path.append('/home/david/photo-hack')
 
 
 UPLOADED_IMAGES_PATH = '/home/david/photo-hack/uploaded_images'
