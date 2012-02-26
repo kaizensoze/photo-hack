@@ -93,7 +93,7 @@ def main(input_gps_loc=None, input_file_path=None):
     
     # get all venues near gps coords of user's device
     venues_near_input = getVenues(input_gps_loc)
-    
+
     # get storefront images of all nearby venues and store on disk
     for venue in venues_near_input:
         getVenueStorefrontImage(venue)
