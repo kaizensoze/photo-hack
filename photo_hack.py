@@ -4,6 +4,11 @@ from bottle import route, run, request, response, static_file, error
 sys.path.append('/home/david/photo-hack')
 import backend_stuff
 
+
+UPLOADED_IMAGES_PATH = '/home/david/photo-hack/uploaded_images'
+COMPARE_IMAGES_PATH = '/home/david/photo-hack/compare_images'
+BASE_URL = 'http://dev.ragemyface.com/'
+
 @route('/', method='POST')
 def index():
     image = request.POST.get('image')
@@ -19,12 +24,17 @@ def index():
         fh.close()
 
     response.content_type = 'application/json'
-    return {'image_url': 'http://dev.ragemyface.com/uploaded_images/' + filename, 'venue_id': '123'}
+    return {'image_url': BASE_URL + filename, 'venue_id': '123'}
 
 
 @route('/uploaded_images/<filename>')
 def send_image(filename):
-    return static_file(filename, root='/home/david/photo-hack/uploaded_images')
+    return static_file(filename, root=UPLOADED_IMAGES_PATH)
+
+
+@route('/compare_images/<filename>')
+def compare_images(filename):
+    return static_file(filename, root=COMPARE_IMAGES_PATH)
 
 
 @error(404)
