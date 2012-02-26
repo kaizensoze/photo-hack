@@ -43,7 +43,8 @@ def compare_images(filename):
 def send_postcard():
     image_url = request.GET.get('image_url')
     venue_name = request.GET.get('venue_name')
-    return image_url
+    backend_stuff.sendPostcard(image_url, venue_name)
+    return '1'
 
 
 @error(404)

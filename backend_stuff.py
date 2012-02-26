@@ -1,6 +1,7 @@
 import json
 import requests
 import threading
+import urllib
 
 def getVenues(gps_loc):
     lat = gps_loc[0]
@@ -52,7 +53,7 @@ def findMatch(input_file_path):
 
     return venue
 
-def sendPostcard(venue):
+def sendPostcard(image_url, venue_name):
     print("SEND POSTCARD!")
 
     api_key = "d68c4c7a-8d35-43fd-8e51-b20e2fa32d8f"
@@ -63,9 +64,9 @@ def sendPostcard(venue):
     state = "NY"
     zip = "10533"
     country = "United States"
-    msg = "Wishing you were here with me at %s." % (venue["name"])
-    server_url = "http://dev.ragemyface.com/compare_images"
-    img_url = "%s/%s.jpeg" % (server_url, venue["id"])
+    msg = urllib.urlencode("Wishing you were here with me at %s." % (venue_name))
+    #server_url = "http://dev.ragemyface.com/uploaded_images"
+    img_url = urllib.urlencode(image_url)
 
     url = "http://www.cardthis.com/cardthisorder/?apikey=%s&firstname=%s&lastname=%s&address1=%s&city=%s&state=%s&zip=%s&country=%s&msg=%s&imageurl=%s" % (
         api_key,
