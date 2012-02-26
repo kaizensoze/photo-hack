@@ -1,6 +1,8 @@
+
 import json
 import requests
-import threading
+
+
 
 def getVenues(gps_loc):
     lat = gps_loc[0]
@@ -20,20 +22,21 @@ def getVenues(gps_loc):
     venues_raw = json.loads(r.content)["response"]["venues"]
     
     # check results
-    print(json.dumps(venues_raw, indent=4))
+    #print(json.dumps(venues_raw, indent=4))
     
     # return venues with subset of info
-    venues = []
+    venues = {}
     for v in venues_raw:
         v_temp = {}
         v_temp["name"] = v["name"]
         v_temp["id"] = v["id"]
         v_temp["gps"] = (v["location"]["lat"], v["location"]["lng"])
         v_temp["address"] = v["location"]["address"] + ", " + v["location"]["city"] + ", " + v["location"]["state"]
-        v_temp["categories"] = [c["name"] for c in v["categories"]]
-        venues.append(v_temp)
+        v_temp["category"] = v["categories"][0]["name"]
+        venues[v["id"]] = v_temp
     
     return venues
+
 
 def getVenueStorefrontImage(venue):
     url = "http://maps.googleapis.com/maps/api/streetview?size=600x300&location=%s&sensor=true" % (venue["address"])
@@ -44,17 +47,8 @@ def getVenueStorefrontImage(venue):
     outfile.write(img_data)
     outfile.close()
 
-def findMatch(input_file_path):
-    # dummy data
-    venue = {}
-    venue["id"] = "3fd66200f964a52058e41ee3"
-    venue["name"] = "Mc Sorley's"
 
-    return venue
-
-def sendPostcard(venue):
-    print("SEND POSTCARD!")
-
+def sendPostCard(img_url, venue_name):
     api_key = "d68c4c7a-8d35-43fd-8e51-b20e2fa32d8f"
     first_name = "Lucas"
     last_name = "Lappin"
@@ -63,9 +57,7 @@ def sendPostcard(venue):
     state = "NY"
     zip = "10533"
     country = "United States"
-    msg = "Wishing you were here with me at %s." % (venue["name"])
-    server_url = "http://dev.ragemyface.com/compare_images"
-    img_url = "%s/%s.jpeg" % (server_url, venue["id"])
+    msg = "Wishing you were here with me at %s." % (venue_name)
 
     url = "http://www.cardthis.com/cardthisorder/?apikey=%s&firstname=%s&lastname=%s&address1=%s&city=%s&state=%s&zip=%s&country=%s&msg=%s&imageurl=%s" % (
         api_key,
@@ -80,32 +72,27 @@ def sendPostcard(venue):
         img_url
     )
     r = requests.get(url)
-    print(r.text)
 
-def main(input_gps_loc=None, input_file_path=None):
 
-    # use sample data if necessary
-    if input_gps_loc is None:
-        input_gps_loc = (40.728672, -73.989745)
-
-    if input_file_path is None:
-        input_file_path = "sample_input.jpg"
-    
+def getMatch(filepath, gps_loc):
     # get all venues near gps coords of user's device
-    venues_near_input = getVenues(input_gps_loc)
+    venues_near_input = getVenues(gps_loc)
 
     # get storefront images of all nearby venues and store on disk
-    for venue in venues_near_input:
+    for venue_id, venue in venues_near_input.iteritems():
         getVenueStorefrontImage(venue)
     
     # take uploaded image, compare against storefront images, and find a match
-    match_venue = findMatch(input_file_path)
+    # TODO: match_venue_id = callOpenCVCall()
+    match_venue_id = '4a5d186ff964a5202bbd1fe3'
 
-    # send postcard of venue match [to sample user]
-    if match_venue:
-        threading.Timer(0, sendPostcard, [match_venue]).start()
+    match_venue = venues_near_input[match_venue_id]
 
-if __name__ == "__main__":
-    venues_json = main()
-    print("DONE!")
-    #print(venues_json)
+    result = {
+        "id": match_venue["id"],
+        "name": match_venue["name"],
+        "category": match_venue["category"]
+    }
+
+    return result
+
