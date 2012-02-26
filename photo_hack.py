@@ -7,9 +7,9 @@ import time
 from pprint import pprint
 
 from bottle import route, run, request, response, static_file, error
+sys.path.append('/home/david/photo-hack')
 import backend
 
-sys.path.append('/home/david/photo-hack')
 
 
 UPLOADED_IMAGES_PATH = '/home/david/photo-hack/uploaded_images'
@@ -51,7 +51,7 @@ def send_postcard():
 
     threading.Timer(0, backend.sendPostCard, [image_url, venue_name]).start()
 
-    return image_url
+    return '1'
 
 
 @route('/piictu')
@@ -68,6 +68,14 @@ def send_image(filename):
 @route('/compare_images/<filename>')
 def compare_images(filename):
     return static_file(filename, root=COMPARE_IMAGES_PATH)
+
+
+@route('/send_postcard')
+def send_postcard():
+    image_url = request.GET.get('image_url')
+    venue_name = request.GET.get('venue_name')
+    backend.sendPostcard(image_url, venue_name)
+    return '1'
 
 
 @error(404)
