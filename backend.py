@@ -2,6 +2,8 @@
 import json
 import requests
 
+
+
 def getVenues(gps_loc):
     lat = gps_loc[0]
     lng = gps_loc[1]
@@ -23,15 +25,15 @@ def getVenues(gps_loc):
     #print(json.dumps(venues_raw, indent=4))
     
     # return venues with subset of info
-    venues = []
+    venues = {}
     for v in venues_raw:
         v_temp = {}
         v_temp["name"] = v["name"]
         v_temp["id"] = v["id"]
         v_temp["gps"] = (v["location"]["lat"], v["location"]["lng"])
         v_temp["address"] = v["location"]["address"] + ", " + v["location"]["city"] + ", " + v["location"]["state"]
-        v_temp["categories"] = [c["name"] for c in v["categories"]]
-        venues.append(v_temp)
+        v_temp["category"] = v["categories"][0]["name"]
+        venues[v["id"]] = v_temp
     
     return venues
 
@@ -79,15 +81,18 @@ def getMatch(filepath, gps_loc):
     venues_near_input = getVenues(gps_loc)
 
     # get storefront images of all nearby venues and store on disk
-    for venue in venues_near_input:
+    for venue_id, venue in venues_near_input.iteritems():
         getVenueStorefrontImage(venue)
     
     # take uploaded image, compare against storefront images, and find a match
-    # TODO: match_venue = callOpenCVCall()
+    # TODO: match_venue_id = callOpenCVCall()
+
+    match_venue = venues_near_input[match_venue_id]
 
     result = {
         "id": match_venue["id"],
-        "name": match_venue["name"]
+        "name": match_venue["name"],
+        "category": match_venue["category"]
     }
 
     return result

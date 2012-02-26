@@ -54,6 +54,12 @@ def send_postcard():
     return image_url
 
 
+@route('/piictu')
+def add_image_to_feed():
+    image_url = request.GET.get('image_url')
+    category = request.GET.get('category')
+
+
 @route('/uploaded_images/<filename>')
 def send_image(filename):
     return static_file(filename, root=UPLOADED_IMAGES_PATH)
