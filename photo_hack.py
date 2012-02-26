@@ -44,8 +44,8 @@ def upload():
     return json.dumps(match_result)
 
 
-@route('/send_postcard')
-def send_postcard():
+@route('/postcard')
+def postcard():
     image_url = request.GET.get('image_url')
     venue_name = request.GET.get('venue_name')
 
