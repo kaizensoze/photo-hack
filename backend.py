@@ -1,7 +1,6 @@
 
 import json
 import requests
-import urllib
 
 def getVenues(gps_loc):
     lat = gps_loc[0]
@@ -47,7 +46,7 @@ def getVenueStorefrontImage(venue):
     outfile.close()
 
 
-def sendPostCard(image_url, venue_name):
+def sendPostCard(img_url, venue_name):
     api_key = "d68c4c7a-8d35-43fd-8e51-b20e2fa32d8f"
     first_name = "Lucas"
     last_name = "Lappin"
@@ -56,9 +55,7 @@ def sendPostCard(image_url, venue_name):
     state = "NY"
     zip = "10533"
     country = "United States"
-    msg = urllib.urlencode("Wishing you were here with me at %s." % (venue_name))
-    #server_url = "http://dev.ragemyface.com/compare_images"
-    img_url = urllib.urlencode(image_url)
+    msg = "Wishing you were here with me at %s." % (venue_name)
 
     url = "http://www.cardthis.com/cardthisorder/?apikey=%s&firstname=%s&lastname=%s&address1=%s&city=%s&state=%s&zip=%s&country=%s&msg=%s&imageurl=%s" % (
         api_key,
