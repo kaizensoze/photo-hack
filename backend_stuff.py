@@ -40,11 +40,11 @@ def getVenueStorefrontImage(venue):
 def findMatch(venue):
     return None
 
-def main():
-    input_gps_loc = (40.728672, -73.989745)
+def main(image_name, lat_lng):
+    #input_gps_loc = (40.728672, -73.989745)
 
     # get all venues near gps coords of user's device
-    venues_near_input = getVenues(input_gps_loc)
+    venues_near_input = getVenues(lat_lng)
 
     # get storefront images of all nearby venues and store on disk
     for venue in venues_near_input:

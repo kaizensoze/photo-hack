@@ -23,6 +23,8 @@ def index():
         fh.write(image.decode('base64'))
         fh.close()
 
+    # call backend_stuff.findMatch(filename, (lat, lng))
+
     response.content_type = 'application/json'
     return {'image_url': BASE_URL + filename, 'venue_id': '123'}
 
