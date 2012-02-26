@@ -39,6 +39,12 @@ def compare_images(filename):
     return static_file(filename, root=COMPARE_IMAGES_PATH)
 
 
+@route('/send_postcard')
+def send_postcard():
+    image_url = request.GET.get('image_url')
+    return image_url
+
+
 @error(404)
 def error404(error):
     return 'Nothing here, sorry'
